@@ -259,6 +259,23 @@
 <script>
 	// Add event listener for the main photo button
 	document.addEventListener('DOMContentLoaded', function() {
+		// Check if it's time to show the button (August 30, 2025 at 9 AM)
+		function checkTimeToShowButton() {
+			var now = new Date();
+			var targetDate = new Date(2025, 7, 30, 9, 0, 0); // August 30, 2025 at 9 AM (month is 0-indexed)
+			
+			if (now >= targetDate) {
+				// It's time to show the button
+				document.getElementById('countdown-buttons').style.display = 'block';
+			} else {
+				// Check again in a minute
+				setTimeout(checkTimeToShowButton, 60000);
+			}
+		}
+		
+		// Start checking
+		checkTimeToShowButton();
+		
 		// Main photo button event listener
 		var mainPhotoBtn = document.getElementById('main-photo-btn');
 		if (mainPhotoBtn) {
