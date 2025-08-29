@@ -47,7 +47,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">Dobrodošli<strong>.</strong></a></div>
+					<div id="fh5co-logo"><a href="#" id="secret-button">Dobrodošli<strong>.</strong></a></div>
 				</div>
 			</div>
 			
@@ -62,10 +62,24 @@
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1>Ivana &amp; Vladislav</h1>
-							<h2>Venčanje</h2>
 							<div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="#" class="btn btn-default btn-sm">Sačuvajte datum</a></p>
-						</div>
+							<div id="countdown-buttons" style="display: none;">
+								<p>
+									<a href="#" id="main-photo-btn" class="btn btn-primary btn-lg" style="margin: 10px; font-weight: bold; font-size: 20px;">Dodajte slike sa Venčanja</a>
+								</p>
+								<div id="photo-options" style="display: none; margin-top: 20px;">
+									<p>
+										<a href="https://linkly.link/2EMUH" class="btn btn-success btn-md" style="margin: 5px;">Sa Aplikacijom</a>
+									</p>
+									<p style="margin-top: 10px; font-size: 14px;">
+										ili
+									</p>
+									<p>
+										<a href="https://linkly.link/2EMUh" class="btn btn-default btn-md" style="margin: 5px;">Bez Aplikacije</a>
+									</p>
+								</div>
+							</div>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -211,21 +225,66 @@
     var d = new Date(new Date().getTime() + 200 * 120 * 120 * 2000);
 
     // default example
-    simplyCountdown('.simply-countdown-one', {
-        year: 2025,
-        month: 08,
-        day: 30
-    });
+	simplyCountdown('.simply-countdown-one', {
+		year: 2025,
+		month: 8,
+		day: 30,
+		hours: 16,   // Time of the civil ceremony
+		minutes: 0,
+		seconds: 0,
+		words: {
+			days: 'Dana',
+			hours: 'Sati',
+			minutes: 'Minuta',
+			seconds: 'Sekundi',
+			pluralLetter: ''
+		},
+		plural: true,
+		inline: false,
+		enableUtc: false,  // Set to true if you want to use UTC time
+		refresh: 1000,
+		sectionClass: 'simply-section',
+		amountClass: 'simply-amount',
+		wordClass: 'simply-word',
+		zeroPad: false,
+		onEnd: function() {
+			// Show the buttons when countdown ends
+			document.getElementById('countdown-buttons').style.display = 'block';
+			// Hide the countdown
+			document.querySelector('.simply-countdown-one').style.display = 'none';
+		}
+	});
+</script>
 
-    //jQuery example
-    $('#simply-countdown-losange').simplyCountdown({
-        year: 2025,
-        month: 08,
-        day: 30,
-        enableUtc: false
-    });
+<script>
+	// Add event listener for the main photo button
+	document.addEventListener('DOMContentLoaded', function() {
+		// Main photo button event listener
+		var mainPhotoBtn = document.getElementById('main-photo-btn');
+		if (mainPhotoBtn) {
+			mainPhotoBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				var photoOptions = document.getElementById('photo-options');
+				if (photoOptions) {
+					photoOptions.style.display = 'block';
+					mainPhotoBtn.style.display = 'none';
+				}
+			});
+		}
+		
+		// Secret button event listener
+		var secretBtn = document.getElementById('secret-button');
+		if (secretBtn) {
+			secretBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				// Hide countdown
+				document.querySelector('.simply-countdown-one').style.display = 'none';
+				// Show buttons
+				document.getElementById('countdown-buttons').style.display = 'block';
+			});
+		}
+	});
 </script>
 
 	</body>
 </html>
-
